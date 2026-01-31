@@ -1,2 +1,4 @@
 data/
 output/tables/speeches_ddbb.csv
+output/tables/speeches_processed.csv
+notebooks/
