@@ -4,9 +4,11 @@ import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 import math
 import pandas as pd
+import numpy as np
 
 # LOAD DATA
 final_df = pd.read_csv('output/tables/speeches_with_coordinates.csv')
+final_df = final_df[final_df['place']!='MR'] # MR was being incorrectly mapped to Mauritania
 
 
 for president in final_df['president'].unique():
@@ -14,6 +16,26 @@ for president in final_df['president'].unique():
     
     # GROUP BY
     df_counts = final_df[final_df['president']==president].groupby(['lat', 'lon']).size().reset_index(name='count')
+
+    # GENERATE CENTROIDS
+    def get_spherical_centroid(lats, lons):
+        lat_rad = np.deg2rad(lats)
+        lon_rad = np.deg2rad(lons)
+
+        x = np.cos(lat_rad) * np.cos(lon_rad)
+        y = np.cos(lat_rad) * np.sin(lon_rad)
+        z = np.sin(lat_rad)
+
+        x_avg = np.mean(x)
+        y_avg = np.mean(y)
+        z_avg = np.mean(z)
+
+        lon_mean = np.arctan2(y_avg, x_avg)
+        lat_mean = np.arcsin(z_avg)
+
+        return np.rad2deg(lat_mean), np.rad2deg(lon_mean)
+
+    center_lat, center_lon = get_spherical_centroid(final_df[final_df['president']==president]['lat'], final_df[final_df['president']==president]['lon'])
 
     # BUILD MAP
     gdf_weighted = gpd.GeoDataFrame(
@@ -53,6 +75,8 @@ for president in final_df['president'].unique():
         zorder=5
     )
 
+    plt.scatter(center_lon, center_lat, color='black', zorder=100, marker='P', s=200)
+
     legend_sizes = [50, 150, 450] 
     legend_labels = [s for s in legend_sizes]
 
@@ -69,6 +93,19 @@ for president in final_df['president'].unique():
         ) 
         for s, label in zip(legend_sizes, legend_labels)
     ]
+
+    legend_handles.append(
+        Line2D(
+            [0], [0], 
+            marker='P',          
+            color='w',           
+            label='Geographic Center', 
+            markerfacecolor='black',
+            markeredgecolor='black',
+            markersize=15,       
+            linestyle='None'     
+        )
+    )
 
     ax.legend(
         handles=legend_handles, 
