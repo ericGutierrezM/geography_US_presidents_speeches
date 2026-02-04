@@ -1,4 +1,5 @@
 data/
 output/tables/speeches_ddbb.csv
 output/tables/speeches_processed.csv
+output/tables/speeches_with_coordinates.csv
 notebooks/
