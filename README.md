@@ -38,13 +38,13 @@ Figure 1 displays the places mentioned in US Presidents' speeches between 1852 a
 
 Back to Figure 1, notice how most points in the continental United States are in the East Coast, which is not surprising given that most of the population in the country lives East of the Mississippi river. In addition, for many of the decades covered in our analysis, the American West was still virtually unpopulated. It is important to note that the biggest point, which has its centroid in the state of Washington, corresponds to "the United States" point. Its location can be attributed to the state Alaska, that pulls the centroid for the United States towards the Northwest.
 
-| ![Top 10 Places Mentioned in US Presidents' Speeches (1852-2025)](output/figs/top10_places_ALL.png) |
-|:--:| 
-| *Fig 2. Top 10 places mentioned in US Presidents' speeches (1852-2025).* |
-
 Focusing now on other countries in the Americas, the first surprising finding is the preeminence of Mexico, Central America, and the Caribean over Canada in US Presidents' speeches. Notice how Cuba and Panama both have been mentioned often, probably as a consequence of their geostrategic centrality, especially during the 20th century. In the Americas, the number of mentions seems to decrease as the distance with the United States increases.
 
 After America, the second territory with more density of places mentioned is Europe. Places such as "Europe", "Great Britain", "Spain", or "France" have been mentioned profusely throughout the period of analysis. This finding is not surprising taken into consideration the tight historical relationships between nations both sides of the Atlantic, and also the centrality of the European continent in the 19th and 20th centuries. The importance of the territories that once were occupied by the Soviet Union is likely underestimated, given the changes in nomenclature as the Russian Empire turned into the Soviet Union, and then later into the Russian Federation. However, their importance is still notable as depicted in Figure 1.
+
+| ![Top 10 Places Mentioned in US Presidents' Speeches (1852-2025)](output/figs/top10_places_ALL.png) |
+|:--:| 
+| *Fig 2. Top 10 places mentioned in US Presidents' speeches (1852-2025).* |
 
 From the Eastern Mediterranean and throughout the Middle East until South Central Asia, a corridor with places mentioned abundantly can be found. It includes Israel and Lebanon, but also Iraq, Iran, and Afghanistan; all of them territories that have been central to the geopolitic scenario of the 21st century. Further East, "China", "Vietnam", "Japan", and "South Korea" also register high counts of mentions for the period of analysis. Australia and New Zealand, along with countries in the African continent, have been mentioned relatively less when compared with the counts of European and Asian territories.
 
