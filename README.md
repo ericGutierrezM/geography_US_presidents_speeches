@@ -34,7 +34,7 @@ Figure 1 displays the places mentioned in US Presidents' speeches between 1852 a
 
 | ![Map of Places Mentioned in US Presidents' Speeches (1852-2025)](output/figs/map_places_ALL.png) |
 |:--:| 
-| *Fig 1. Map of the places pentioned in US Presidents' speeches, along with their geographical center (1852-2025).* |
+| *Fig 1. Map of the places mentioned in US Presidents' speeches, along with their geographical center (1852-2025).* |
 
 Back to Figure 1, notice how most points in the continental United States are in the East Coast, which is not surprising given that most of the population in the country lives East of the Mississippi river. In addition, for many of the decades covered in our analysis, the American West was still virtually unpopulated. It is important to note that the biggest point, which has its centroid in the state of Washington, corresponds to "the United States" point. Its location can be attributed to the state Alaska, that pulls the centroid for the United States towards the Northwest.
 
@@ -46,6 +46,16 @@ Focusing now on other countries in the Americas, the first surprising finding is
 
 After America, the second territory with more density of places mentioned is Europe. Places such as "Europe", "Great Britain", "Spain", or "France" have been mentioned profusely throughout the period of analysis. This finding is not surprising taken into consideration the tight historical relationships between nations both sides of the Atlantic, and also the centrality of the European continent in the 19th and 20th centuries. The importance of the territories that once were occupied by the Soviet Union is likely underestimated, given the changes in nomenclature as the Russian Empire turned into the Soviet Union, and then later into the Russian Federation. However, their importance is still notable as depicted in Figure 1.
 
-From the Eastern Mediterranean and throughout the Middle East until South Central Asia, a corridor with places mentioned abundantly can be found. It includes Israel and Lebanon, but also Irak, Iran, and Afghanistan; all of them territories that have been central to the geopolitic scenario of the 21st century.
+From the Eastern Mediterranean and throughout the Middle East until South Central Asia, a corridor with places mentioned abundantly can be found. It includes Israel and Lebanon, but also Iraq, Iran, and Afghanistan; all of them territories that have been central to the geopolitic scenario of the 21st century. Further East, "China", "Vietnam", "Japan", and "South Korea" also register high counts of mentions for the period of analysis. Australia and New Zealand, along with countries in the African continent, have been mentioned relatively less when compared with the counts of European and Asian territories.
+
+Moreover, the _geographical center_ of the places mentioned remains inside the territory of the United States, specifically, on the East coast, close to Washington D.C. Notice how the position of the center does not reflect properly the absolute coordinate of the center, but rather it provides a measure of the _openness_ of American politics (proxied through the US Presidents' speeches) to the international community. Say, for example, that a great number of points were added throughout Asia. The center would move West, provided that the longitude of Asia is positive, while America's is negative. In that sense, we cannot differenciate whether the center gravitates towards Asia, or to Europe or Africa, for instance.
+
+In addition to the map with all the places mentioned in US Presidential speeches from 1852 to 2025, we have also generated individual maps for each US President since Abraham Lincoln. By analyzing the different presidential maps, we can obtain a snapshot of the most relevant topics for the American Administration in the international scene for each mandate. As an example, Figure 3 depicts the map of the places mentioned by George W. Bush, whose presidency spanned from 2001 to 2009. Notice how the _geographical center_ in this case is displaced towards the East when compared to the one in Figure 1. In this very case, the reason can be found on the Global War on Terror and the subsequent involvement of the United States in Iraq and Afghanistan.
+
+| ![Map of Places Mentioned in George W. Bush's Speeches (2001-2009)](output/figs/map_places_George%20W.%20Bush.png) |
+|:--:| 
+| *Fig 3. Map of the places mentioned in George W. Bush's speeches, along with their geographical center (2001-2009).* |
+
+
 
 ### Conclusions
