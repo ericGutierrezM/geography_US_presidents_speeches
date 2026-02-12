@@ -7,7 +7,7 @@ Where does a President’s attention actually lie? The answer often hides in the
 ### Data & Methods
 The Miller Center of Public Affairs, University of Virginia, has a rich database with more than a thousand Presidential speeches, which we use in this project.
 
-> Data Source: Miller Center of Public Affairs, University of Virginia. "_Presidential Speeches: Downloadable Data._" Accessed January 31, 2026. [data.millercenter.org](data.millercenter.org).
+> Data Source: Miller Center of Public Affairs, University of Virginia. "_Presidential Speeches: Downloadable Data._" Accessed January 31, 2026. [data.millercenter.org](https://www.data.millercenter.org).
 
 First, we combine the speeches, which come in separate `json` files, in a single `csv` file. Once this is done, we proceed in retrieving the names of the places present in each speech. To do so, we use the Natural Language Processing (NLP) library `spacy`, which has the ability to label the words in a text, including geopolitical entities and locations. As a result, we obtain a list of the places in a given speech, along with how many times a place was mentioned, a list of unique places, and the number of unique places mentioned. Examples of the places found include America, Cuba, but also the Columbia River, the Rocky Mountains, or the Persian Gulf.
 
