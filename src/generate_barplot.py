@@ -40,7 +40,7 @@ ax.set_ylabel("", fontsize=0)
 ax.tick_params(axis='y', labelsize=11, colors='#333333')
 
 plt.suptitle(
-    "Top 10 Most Mentioned Places in US Presidents' Speeches (1852-2025)", 
+    "Top 10 Most Mentioned Places in US Presidents' Speeches (1796-2025)", 
     fontsize=20, 
     fontweight='bold', 
     y=0.99, 

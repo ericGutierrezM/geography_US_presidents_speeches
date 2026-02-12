@@ -120,7 +120,7 @@ ax.legend(
     labelspacing=3.5,
     handletextpad=1.7
 )
-plt.suptitle(f"Places Mentioned in US Presidents' Speeches (1852-2025)", fontsize=22, fontweight='bold', x=0.5, y=0.83, bbox=dict(facecolor="#FFFFFF00", alpha=0, edgecolor='white'))
+plt.suptitle(f"Places Mentioned in US Presidents' Speeches (1796-2025)", fontsize=22, fontweight='bold', x=0.5, y=0.83, bbox=dict(facecolor="#FFFFFF00", alpha=0, edgecolor='white'))
 
 text_content = "© 2026 Eric Gutiérrez | Projection: WGS84 (EPSG:4326)"
 
