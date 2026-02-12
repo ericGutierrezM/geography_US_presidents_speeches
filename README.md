@@ -1,4 +1,4 @@
-# Computing the Geographical Center of US Presidents' Speeches
+# Spatial Patterns and Geographical Centers of U.S. Presidential Speeches (1852–2025)
 > Eric Gutiérrez, 12th February 2026.
 
 ### The Story

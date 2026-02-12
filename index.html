@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>Spatial Patterns and Geographical Centers of U.S. Presidential Speeches (1852–2025)</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+body {
+  width: 50vw;
+  margin-left: 25vw;
+  font-size: 2.5vh;
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h1 id="computing-the-geographical-center-of-us-presidents-speeches">Spatial Patterns and Geographical Centers of U.S. Presidential Speeches (1852–2025)</h1>
+<blockquote>
+<p>Eric Gutiérrez, 12th February 2026.</p>
+</blockquote>
+<h3 id="the-story">The Story</h3>
+<p>Where does a President’s attention actually lie? The answer often hides in the map of their words. Political leaders constantly mention places to signal warmth or warning, and by retrieving these names, we can uncover the 'mental geography' behind their policies. Using a dataset of over 1,000 speeches from 1852 to 2025, this project generates a unique spatial heatmap for each U.S. President. Beyond simple maps, we also calculate a specific 'geographical center' for every administration, visualizing exactly how the focal point of American leadership has drifted across the globe over the last two centuries.</p>
+<h3 id="data--methods">Data &amp; Methods</h3>
+<p>The Miller Center of Public Affairs, University of Virginia, has a rich database with more than a thousand Presidential speeches, which we use in this project.</p>
+<blockquote>
+<p>Data Source: Miller Center of Public Affairs, University of Virginia. &quot;<em>Presidential Speeches: Downloadable Data.</em>&quot; Accessed January 31, 2026. <a href="data.millercenter.org">data.millercenter.org</a>.</p>
+</blockquote>
+<p>First, we combine the speeches, which come in separate <code>json</code> files, in a single <code>csv</code> file. Once this is done, we proceed in retrieving the names of the places present in each speech. To do so, we use the Natural Language Processing (NLP) library <code>spacy</code>, which has the ability to label the words in a text, including geopolitical entities and locations. As a result, we obtain a list of the places in a given speech, along with how many times a place was mentioned, a list of unique places, and the number of unique places mentioned. Examples of the places found include America, Cuba, but also the Columbia River, the Rocky Mountains, or the Persian Gulf.</p>
+<p>The next step involves obtaining the coordinates for each unique place retrieved in the previous step, using the <code>geopy</code> library. As a result, we generate a table that contains the latitude and longitude in WGS84 for each unique place. Next, we join the coordinates with the places identified in each speech. The resulting table resembles the following structure:</p>
+<table style="font-size: 2vh;">
+<thead>
+<tr>
+<th>title</th>
+<th>date</th>
+<th>president</th>
+<th>place</th>
+<th>num_places</th>
+<th>lat</th>
+<th>long</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>February 27, 1860: Cooper Union Address</td>
+<td>1860-02-27T13:03:58-04:56</td>
+<td>Abraham Lincoln</td>
+<td>Great Britain</td>
+<td>37</td>
+<td>54.315159</td>
+<td>-1.918153</td>
+</tr>
+<tr>
+<td>February 27, 1860: Cooper Union Address</td>
+<td>1860-02-27T13:03:58-04:56</td>
+<td>Abraham Lincoln</td>
+<td>Atlantic</td>
+<td>37</td>
+<td>39.514327</td>
+<td>-74.663288</td>
+</tr>
+<tr>
+<td>February 27, 1860: Cooper Union Address</td>
+<td>1860-02-27T13:03:58-04:56</td>
+<td>Abraham Lincoln</td>
+<td>North America</td>
+<td>37</td>
+<td>51.000000</td>
+<td>-109.000000</td>
+</tr>
+<tr>
+<td>February 27, 1860: Cooper Union Address</td>
+<td>1860-02-27T13:03:58-04:56</td>
+<td>Abraham Lincoln</td>
+<td>Washington</td>
+<td>37</td>
+<td>38.895037</td>
+<td>-77.036543</td>
+</tr>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<p>To compute the geographical center of each U.S. President, a methodological decision must be made regarding how the aggregation of the places' coordinates will take place. To find the centroids on a sphere, we must first convert the coordinates to 3D Cartesian vectors, average them in that space, and convert them back.</p>
+<p>However, the decision has to do with how to deal with the fact that some places are mentioned more than once in a speech. One option is to use the unique places mentioned, and thus for each place to enter the average only once, without consideration for how many times they have been repeated. We consider that this approach can distort the results, given that usual terms such as &quot;America&quot; or &quot;the United States&quot; will be presumably severely underrepresented. In addition, this approach would require places with different names or expressed in different manners, such as &quot;the United States&quot; and &quot;the US&quot;, to be grouped together.</p>
+<p>An alternative option is for each place to enter the average each time that it has been mentioned. This not only solves the problem of misrepresentation mentioned above, but it also makes further data preprocessing to group together different terms that refer to a common place unnecessary. Although this approach is nonetheless sensitive to the relative number of times that a place appears in a speech, we have selected it given that it is the most reasonable of the two options at hand.</p>
+<p>At the moment, all the coordinates of all the places mentioned in a speech have the same weight when computing the center. However, the code allows for these weights to be set in a different manner if needed. With this data, we plot the map of the places mentioned by U.S. Presidents between 1852 and 2025, together with the geographical center of the speeches. In addition, a separate map and a computation of the geographical center are generated for each President. Finally, the evolution of the geographical center over time is generated by combining the data in 20-year periods.</p>
+<h3 id="results">Results</h3>
+<p>Figure 1 displays the places mentioned in U.S. Presidents' speeches between 1852 and 2025, in addition to the geographical center of the places mentioned in the speeches for the whole period. First, the results show that the United States accounts for a large share of the places mentioned, with 'the United States' and 'America' being the two places mentioned the most (7,612 and 4,267 times, respectively). In Figure 2, we show the ten most frequently mentioned places for the period of analysis, which include other domestic locations (such as 'Washington') along with 'Europe', 'Mexico', 'China', 'Great Britain', 'Cuba', and 'the Soviet Union'.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="file:///d:\Users\Eric\Desktop\Arxius\git\geography_US_presidents_speeches\output\figs\map_places_ALL.png" alt="Map of Places Mentioned in U.S. Presidents' Speeches (1852-2025)"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><em>Fig 1. Map of the places mentioned in U.S. Presidents' speeches, along with their geographical center (1852-2025).</em></td>
+</tr>
+</tbody>
+</table>
+<p>Returning to Figure 1, observe that the majority of points within the continental United States are concentrated along the East Coast. This is not surprising, given that the majority of the country's population resides east of the Mississippi River. Furthermore, for many of the decades covered in our analysis, the American West was sparsely populated. It is important to note that the largest data point, representing 'the United States,' is located in Washington state. This westward positioning is likely influenced by the inclusion of Alaska, which pulls the geometric center toward the Northwest.</p>
+<p>Turning to the rest of the Americas, a striking finding is the prominence of Mexico, Central America, and the Caribbean relative to Canada in Presidential speeches. Notably, Cuba and Panama appear frequently, likely a consequence of their geostrategic significance, particularly during the 20th century. Across the Americas, the frequency of mentions appears to diminish as the distance from the United States increases.</p>
+<p>Outside the Americas, the region with the highest density of mentions is Europe. Locations such as 'Europe,' 'Great Britain,' 'Spain,' and 'France' are referenced profusely throughout the period of analysis. This finding is expected, considering the enduring transatlantic ties and the geopolitical centrality of the European continent during the 19th and 20th centuries. Finally, the significance of the territories formerly comprising the Soviet Union is likely underestimated due to nomenclature shifts, as the Russian Empire became the Soviet Union and later the Russian Federation. Nevertheless, their importance remains notable, as depicted in Figure 1.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="file:///d:\Users\Eric\Desktop\Arxius\git\geography_US_presidents_speeches\output\figs\top10_places_ALL.png" alt="Top 10 Places Mentioned in U.S. Presidents' Speeches (1852-2025)"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><em>Fig 2. Top 10 places mentioned in U.S. Presidents' speeches (1852-2025).</em></td>
+</tr>
+</tbody>
+</table>
+<p>Extending from the Eastern Mediterranean through the Middle East and into South Central Asia, a distinct corridor of frequently mentioned locations emerges. This region includes Israel and Lebanon, as well as Iraq, Iran, and Afghanistan; territories central to the geopolitical landscape of the 21st century. Further East, nations such as 'China,' 'Vietnam,' 'Japan,' and 'South Korea' also register high citation counts. In contrast, Australia, New Zealand, and nations across the African continent appear relatively infrequently compared to European and Asian territories.</p>
+<p>Moreover, the calculated 'geographical center' of these mentions remains within the United States, specifically along the East Coast near Washington, D.C. It is important to interpret this metric carefully: the center's position does not represent a literal geographic midpoint, but rather serves as a proxy for the 'openness' of American politics to the international community. For instance, a surge in mentions of Asian locations (which possess positive longitude) against the backdrop of American locations (negative longitude) pulls the center eastward toward the Prime Meridian. Consequently, a shift in the center can be ambiguous; without referencing the underlying map, it is difficult to differentiate whether the centroid is gravitating toward Europe, Africa, or Asia.</p>
+<p>In addition to the aggregate map for 1852–2025, we generated individual maps for each U.S. President. By analyzing these distinct spatial footprints, we obtain a snapshot of the most relevant international topics for each administration. For example, Figure 3 depicts the map of places mentioned by George W. Bush (2001–2009). Notably, his administration's geographical center is displaced significantly to the East compared to the historical average in Figure 1. This shift is a direct reflection of the Global War on Terror and the intense U.S. involvement in Iraq and Afghanistan.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="file:///d:\Users\Eric\Desktop\Arxius\git\geography_US_presidents_speeches\output\figs\map_places_George%20W.%20Bush.png" alt="Map of Places Mentioned in George W. Bush's Speeches (2001-2009)"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><em>Fig 3. Map of the places mentioned in George W. Bush's speeches, along with their geographical center (2001-2009).</em></td>
+</tr>
+</tbody>
+</table>
+<p>Finally, Figure 4 illustrates the evolution of the geographical center of U.S. Presidential speeches over time. To ensure the clarity of the visualization, the data has been aggregated into 20-year intervals.</p>
+<p>Notice that from the 1780s until the 1940s, the center consistently drifted Southwest, though it remained within the continental United States. This trajectory mirrors the nation's actual demographic expansion during the same period.</p>
+<p>However, the First and Second World Wars shifted the geographical center dramatically, pulling it away from the U.S. mainland and toward the rest of the world. This disruption is unsurprising considering the global scale of the conflicts in this era, which necessitated a sharp increase in references to international locations.</p>
+<p>Following the 1940s, the center drifted back toward the American continent but never fully returned to the United States' interior. The 1980s and 2000s, decades defined by increasing globalization and interventionism, are characterized by a movement further away from the continent and deep into the Atlantic. In contrast, the 2020s mark a return to the inward-looking trend initiated during the 1960s, shifting the focal point of Presidential speeches back toward America.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="file:///d:\Users\Eric\Desktop\Arxius\git\geography_US_presidents_speeches\output\figs\evolution_geo_center.png" alt="Map of the Evolution of the Geographical Center of U.S. Presidential Speeches"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><em>Fig 4. Map of the evolution of the geographical center of U.S. Presidential speeches.</em></td>
+</tr>
+</tbody>
+</table>
+<p>Aggregating data by 20-year periods, while useful for broad trends, can be misleading as it obscures the distinct foreign policy footprints of individual administrations. In Figure 5, we resolve this by plotting the specific geographical centers for 21st-century U.S. Presidents.</p>
+<p>Using Bill Clinton as a baseline, we observe a sharp divergence under George W. Bush, whose center shifts significantly eastward, away from the American continent. In contrast, the centers for Barack Obama and Joe Biden recede, aligning more closely with the positions observed during the 1980s. Most notably, Donald Trump represents a significant outlier: he is the first President since Gerald Ford whose speech center falls squarely within the Continental United States.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><img src="file:///d:\Users\Eric\Desktop\Arxius\git\geography_US_presidents_speeches\output\figs\geo_center_presidents_21st.png" alt="Map of the Evolution of the Geographical Center of U.S. Presidential Speeches. 21st Century Presidents"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><em>Fig 5. Map of the evolution of the geographical center of U.S. Presidential speeches. 21st Century Presidents.</em></td>
+</tr>
+</tbody>
+</table>
+<h3 id="conclusions">Conclusions</h3>
+<p>In conclusion, this project demonstrates that the places mentioned in U.S. Presidential speeches not merely incidental references, but quantifiable data points that reveal the strategic priorities of the American administration. By mapping these references from 1852 to 2025, we have moved beyond simple text analysis to visualize the &quot;mental geography&quot; of U.S. leadership.</p>
+<p>The evolution of the geographical center tells a coherent story of the United States' changing role in the world. We observe the initial domestic focus of the 19th century, followed by the dramatic outward shift necessitated by the World Wars, and the sustained internationalism that defined the Cold War era. Most notably, the data from the 21st century suggests a potential inflection point. The contrast between the interventionism seen in the early 2000s and the &quot;return&quot; to the continental United States observed in recent years highlights an ongoing tension between global engagement and domestic retrenchment.</p>
+<p>Ultimately, the geographical center serves as a historical compass. It captures the shifting weight of American foreign policy. As the geopolitical landscape continues to evolve, this metric provides a novel lens through which to monitor not just what a President says, but where their eyes are truly fixed.</p>
+
+            
+            
+        </body>
+        </html>
